@@ -12,8 +12,13 @@ import {
   Checkbox,
   Stack,
   HStack,
+  Link,
 } from "@chakra-ui/react";
 import { FcCalculator } from "react-icons/fc";
+import { IoMdArrowDropdown } from "react-icons/io";
+import { GrCloudlinux } from "react-icons/gr";
+import {TbChessRook} from "react-icons/tb";
+import {SiRotaryinternational} from "react-icons/si";
 
 const HraCalculator = () => {
   const [basicSalary, setBasicSalary] = useState();
@@ -26,46 +31,40 @@ const HraCalculator = () => {
   const [taxableHra, setTaxableHra] = useState(0.0);
 
   const calculateHra = () => {
-    
-    let totalSalary = basicSalary+daSalary;
-    let value_1 = (totalSalary*10)/100;
-    let value_2 = rentPaid-value_1;
-    let value_3=0;
-    if(checked)
-    {
-      value_3 = (50*totalSalary)/100;
-    }
-    else {
-      value_3 = (40*totalSalary)/100;
+    let totalSalary = basicSalary + daSalary;
+    let value_1 = (totalSalary * 10) / 100;
+    let value_2 = rentPaid - value_1;
+    let value_3 = 0;
+    if (checked) {
+      value_3 = (50 * totalSalary) / 100;
+    } else {
+      value_3 = (40 * totalSalary) / 100;
     }
     let exemptHra = Math.min(hraReceived, value_2, value_3);
     setExemptedHra(exemptHra);
     let taxOnHra = hraReceived - exemptHra;
-    if(taxOnHra>0)
-    {
+    if (taxOnHra > 0) {
       setTaxableHra(taxOnHra);
-    }
-    else{
+    } else {
       setTaxableHra(0);
     }
   };
 
-
-  const resetHandler = ()=>{
-      setBasicSalary();
-      setDaSalary();
-      setCommission();
-      setHraReceived();
-      setRentPaid();
-      setChecked(false);
-      setExemptedHra(0);
-      setTaxableHra(0);
-  }
+  const resetHandler = () => {
+    setBasicSalary("");
+    setDaSalary("");
+    setCommission("");
+    setHraReceived("");
+    setRentPaid("");
+    setChecked(false);
+    setExemptedHra(0);
+    setTaxableHra(0);
+  };
 
   return (
     <Container>
       <Flex>
-        <Box width={"78%"} >
+        <Box width={"78%"}>
           <Text
             width={"92%"}
             margin={"auto"}
@@ -122,10 +121,13 @@ const HraCalculator = () => {
               value={basicSalary}
               onChange={(e) => setBasicSalary(Number(e.target.value))}
               width={"17rem"}
-              padding={"12px"}
+              padding={"8px"}
               marginRight={"16px"}
               _hover={{ border: "1px solid lightblue" }}
               borderRadius={"5px"}
+              textAlign={"right"}
+              fontSize={"16px"}
+              color={"lightBlack"}
             />
           </FormControl>
           <FormControl
@@ -152,10 +154,13 @@ const HraCalculator = () => {
               value={daSalary}
               onChange={(e) => setDaSalary(Number(e.target.value))}
               width={"17rem"}
-              padding={"12px"}
+              padding={"8px"}
               marginRight={"16px"}
               _hover={{ border: "1px solid lightblue" }}
               borderRadius={"5px"}
+              textAlign={"right"}
+              fontSize={"16px"}
+              color={"lightBlack"}
             />
           </FormControl>
           <FormControl
@@ -183,10 +188,13 @@ const HraCalculator = () => {
               value={commission}
               onChange={(e) => setCommission(Number(e.target.value))}
               width={"17rem"}
-              padding={"12px"}
+              padding={"8px"}
               marginRight={"16px"}
               _hover={{ border: "1px solid lightblue" }}
               borderRadius={"5px"}
+              textAlign={"right"}
+              fontSize={"16px"}
+              color={"lightBlack"}
             />
           </FormControl>
           <FormControl
@@ -213,10 +221,13 @@ const HraCalculator = () => {
               value={hraReceived}
               onChange={(e) => setHraReceived(Number(e.target.value))}
               width={"17rem"}
-              padding={"12px"}
+              padding={"8px"}
               marginRight={"16px"}
               _hover={{ border: "1px solid lightblue" }}
               borderRadius={"5px"}
+              textAlign={"right"}
+              fontSize={"16px"}
+              color={"lightBlack"}
             />
           </FormControl>
           <FormControl
@@ -244,10 +255,13 @@ const HraCalculator = () => {
               value={rentPaid}
               onChange={(e) => setRentPaid(Number(e.target.value))}
               width={"17rem"}
-              padding={"12px"}
+              padding={"8px"}
               marginRight={"16px"}
               _hover={{ border: "1px solid lightblue" }}
               borderRadius={"5px"}
+              textAlign={"right"}
+              fontSize={"16px"}
+              color={"lightBlack"}
             />
           </FormControl>
           <FormControl
@@ -297,13 +311,17 @@ const HraCalculator = () => {
             <Input
               type="number"
               id="exempted_HRA"
-              value={exemptedHra}
+              value={exemptedHra.toFixed(2)}
               disabled
               width={"17rem"}
-              padding={"12px"}
+              padding={"8px"}
               marginRight={"16px"}
               _hover={{ border: "1px solid lightblue" }}
               borderRadius={"5px"}
+              textAlign={"right"}
+              fontSize={"20px"}
+              bgColor={"lightgrey"}
+              color={"black"}
             />
           </FormControl>
           <FormControl
@@ -327,17 +345,31 @@ const HraCalculator = () => {
             <Input
               type="number"
               id="taxable_HRA"
-              value={taxableHra}
+              value={taxableHra.toFixed(2)}
               disabled
               width={"17rem"}
-              padding={"12px"}
+              padding={"8px"}
               marginRight={"16px"}
               _hover={{ border: "1px solid lightblue" }}
               borderRadius={"5px"}
+              textAlign={"right"}
+              fontSize={"20px"}
+              bgColor={"lightGray"}
+              color={"black"}
             />
           </FormControl>
-          <HStack color={"white"} justifyContent={"center"} gap={"15px"} mt={"15px"} mb={"1.5rem"} >
-            <Button backgroundColor={"rgb(240,80,80)"} onClick={calculateHra} mb={4}>
+          <HStack
+            color={"white"}
+            justifyContent={"center"}
+            gap={"15px"}
+            mt={"15px"}
+            mb={"1.5rem"}
+          >
+            <Button
+              backgroundColor={"rgb(240,80,80)"}
+              onClick={calculateHra}
+              mb={4}
+            >
               Calculate
             </Button>
             <Button backgroundColor={"gray"} onClick={resetHandler} mb={4}>
@@ -345,48 +377,78 @@ const HraCalculator = () => {
             </Button>
           </HStack>
         </Box>
-        <Box width={"22%"} ></Box>
+        <Box width={"22%"}>
+          <Stack gap={"1.5rem"}>
+            <Link
+              border={"1px solid black"}
+              bgColor={"rgb(239, 237, 237)"}
+              width={"82%"}
+              height={"57px"}
+              fontSize={"1.15rem"}
+              padding={"5px 5px 5px 0"}
+              cursor={"pointer"}
+              margin={"0 auto 0 auto"}
+            >
+              <Flex
+                gap={"1.8rem"}
+                height={"100%"}
+                justifyContent={"center"}
+                alignItems={"center"}
+              >
+                <Text marginLeft={"1.3rem"} fontSize={"1.5rem"} >
+                  <GrCloudlinux />
+                </Text>
+                <Text>
+                  TAX INFORMATION AND SERVICES{" "}
+                  <IoMdArrowDropdown style={{ marginLeft: "7rem" }} />
+                </Text>
+              </Flex>
+            </Link>
+            <Link
+              border={"1px solid black"}
+              bgColor={"rgb(239, 237, 237)"}
+              width={"82%"}
+              height={"57px"}
+              fontSize={"1.15rem"}
+              padding={"5px 5px 5px 0"}
+              cursor={"pointer"}
+              margin={"0 auto 0 auto"}
+            >
+              <Flex gap={"1.8rem"} height={"100%"} justifyContent={"center"}
+                alignItems={"center"}
+              >
+                <Text marginLeft={"0.7rem"} fontSize={"1.5rem"} >
+                  <TbChessRook  />
+                </Text>
+                <Text>TAX LAWS & RULES </Text>
+                <Text>
+                  <IoMdArrowDropdown />
+                </Text>
+              </Flex>
+            </Link>
+            <Link
+              border={"1px solid black"}
+              bgColor={"rgb(239, 237, 237)"} width={"82%"}  height={"57px"} fontSize={"1.15rem"}
+              padding={"5px 5px 5px 0"}
+              cursor={"pointer"} margin={"0 auto 0 auto"}
+            >
+              <Flex gap={"1.8rem"} height={"100%"} justifyContent={"center"}
+                alignItems={"center"}
+              >
+                <Text marginLeft={"1.3rem"} fontSize={"1.5rem"}>
+                  <SiRotaryinternational />
+                </Text>
+                <Text>INTERNATIONAL TAXATION{" "}</Text>
+                <Text>
+                  <IoMdArrowDropdown />
+                </Text>
+              </Flex>
+            </Link>
+          </Stack>
+        </Box>
       </Flex>
     </Container>
   );
 };
 
 export default HraCalculator;
-
-{
-  /* <Box p={4} maxW="400px" m="auto">
-      <Heading as="h1" mb={6} textAlign="center" border={"1px solid skyblue"} backgroundColor={"skyblue"} color={"white"}>
-        House Rent Allowance
-      </Heading>
-      
-      <FormControl mb={4}>
-        <FormLabel htmlFor="hraPercentage">HRA Percentage:</FormLabel>
-        <Input
-          type="number"
-          id="hraPercentage"
-          value={hraPercentage}
-          onChange={(e) => setHraPercentage(Number(e.target.value))}
-        />
-      </FormControl>
-      <FormControl mb={4}>
-        <FormLabel htmlFor="actulRentPaid">Actual Rent Paid:</FormLabel>
-        <Input
-          type="number"
-          id="actualRentPaid"
-          value={actualRentPaid}
-          onChange={(e) => setActualRentPaid(Number(e.target.value))}
-        />
-      </FormControl>
-      <Button colorScheme="blue" onClick={calculateHra} mb={4}>
-        Calculate
-      </Button>
-      {totalAllowance !== 0 && (
-        <Box>
-          <Heading as="h2" size="md" mb={2}>
-            Total HRA Allowance:
-          </Heading>
-          <Text>{totalAllowance}</Text>
-        </Box>
-      )}
-    </Box> */
-}
